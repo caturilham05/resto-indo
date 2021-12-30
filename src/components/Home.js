@@ -1,5 +1,4 @@
 import { React, useState, useEffect } from "react";
-import "../style/Global.css";
 import "../style/ContentFirst.css";
 import axios from "axios";
 import { FaStar } from "react-icons/fa";
@@ -68,7 +67,6 @@ function Home() {
   const dataJakarta = allJakarta;
   const dataBali = allBali;
   const mergeAll = [...dataJakarta, ...dataBali];
-  // const mergeAll = dataJakarta.concat(dataBali);
 
   let datas = mergeAll.reduce(function (index, value) {
     index[value.restaurant.establishment] =
@@ -96,7 +94,7 @@ function Home() {
             <div href="/" className="card">
               <img
                 src={item.restaurant.featured_image}
-                className="card__name"
+                className="card__name "
                 alt={item.restaurant.name}
               />
               <div className="card__overlay">
@@ -267,6 +265,158 @@ function Home() {
                   Kunjungi Restoran
                 </a>
               </div>
+              {/* For Mobile */}
+              <div className="card__body">
+                <div className="card_header_mobile">
+                  <h1 className="card_title_mobile">{item.restaurant.name}</h1>
+                  {(() => {
+                    if (
+                      item.restaurant.user_rating.aggregate_rating > 1 &&
+                      item.restaurant.user_rating.aggregate_rating < 2
+                    ) {
+                      return (
+                        <>
+                          <FaStar
+                            style={{
+                              color: "#df0a74",
+                            }}
+                          />
+                          <p className="p_mobile">{item.restaurant.user_rating.rating_text}</p>
+                          <small className="small_mobile">
+                            Rating:
+                            {item.restaurant.user_rating.aggregate_rating}
+                          </small>
+                        </>
+                      );
+                    } else if (
+                      item.restaurant.user_rating.aggregate_rating > 2 &&
+                      item.restaurant.user_rating.aggregate_rating < 3
+                    ) {
+                      return (
+                        <>
+                          <FaStar
+                            style={{
+                              color: "#df0a74",
+                            }}
+                          />
+                          <FaStar
+                            style={{
+                              color: "#df0a74",
+                            }}
+                          />
+                          <p className="p_mobile">{item.restaurant.user_rating.rating_text}</p>
+                          <small className="small_mobile">
+                            Rating:{" "}
+                            {item.restaurant.user_rating.aggregate_rating}
+                          </small>
+                        </>
+                      );
+                    } else if (
+                      item.restaurant.user_rating.aggregate_rating > 3 &&
+                      item.restaurant.user_rating.aggregate_rating < 4
+                    ) {
+                      return (
+                        <>
+                          <FaStar
+                            style={{
+                              color: "#df0a74",
+                            }}
+                          />
+                          <FaStar
+                            style={{
+                              color: "#df0a74",
+                            }}
+                          />
+                          <FaStar
+                            style={{
+                              color: "#df0a74",
+                            }}
+                          />
+                          <p className="p_mobile">{item.restaurant.user_rating.rating_text}</p>
+                          <small className="small_mobile">
+                            Rating:{" "}
+                            {item.restaurant.user_rating.aggregate_rating}
+                          </small>
+                        </>
+                      );
+                    } else if (
+                      item.restaurant.user_rating.aggregate_rating > 4 &&
+                      item.restaurant.user_rating.aggregate_rating < 5
+                    ) {
+                      return (
+                        <>
+                          <FaStar
+                            style={{
+                              color: "#df0a74",
+                            }}
+                          />
+                          <FaStar
+                            style={{
+                              color: "#df0a74",
+                            }}
+                          />
+                          <FaStar
+                            style={{
+                              color: "#df0a74",
+                            }}
+                          />
+                          <FaStar
+                            style={{
+                              color: "#df0a74",
+                            }}
+                          />
+                          <p className="p_mobile">{item.restaurant.user_rating.rating_text}</p>
+                          <small className="small_mobile">
+                            Rating:{" "}
+                            {item.restaurant.user_rating.aggregate_rating}
+                          </small>
+                        </>
+                      );
+                    } else if (
+                      item.restaurant.user_rating.aggregate_rating === 5
+                    ) {
+                      <>
+                        <FaStar
+                          style={{
+                            color: "#df0a74",
+                          }}
+                        />
+                        <FaStar
+                          style={{
+                            color: "#df0a74",
+                          }}
+                        />
+                        <FaStar
+                          style={{
+                            color: "#df0a74",
+                          }}
+                        />
+                        <FaStar
+                          style={{
+                            color: "#df0a74",
+                          }}
+                        />
+                        <FaStar
+                          style={{
+                            color: "#df0a74",
+                          }}
+                        />
+                        <p className="p_mobile">{item.restaurant.user_rating.rating_text}</p>
+                        <small className="small_mobile">
+                          {item.restaurant.user_rating.aggregate_rating}
+                        </small>
+                      </>;
+                    }
+                  })()}
+                  <h4 className="card_tagline_mobile">
+                    {item.restaurant.location.address}
+                  </h4>
+                  <span className="card_status_mobile">
+                    Open At : {item.restaurant.timings}
+                  </span>
+                </div>
+              </div>
+              {/* For Mobile */}
             </div>
           </li>
         ))}
@@ -340,8 +490,15 @@ function Home() {
           <h3 className="content_first_newsletter_h1">Get Newsletter</h3>
           <hr className="content_first_newsletter_line" />
           <div className="form">
-            <input type="text" placeholder="Input Your Email Address" className="form_input" required/>
-            <button type="submit" className="content_first_newsletter_button">Submit Now</button>
+            <input
+              type="text"
+              placeholder="Input Your Email Address"
+              className="form_input"
+              required
+            />
+            <button type="submit" className="content_first_newsletter_button">
+              Submit Now
+            </button>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import "../style/Global.css";
-function Navbar() {
+
+const Navbar = ({toggle}) => {
   return (
     <div className="nav">
       <div className="nav_logo">
@@ -9,6 +9,7 @@ function Navbar() {
           Resto Indo
         </Link>
       </div>
+      <i className="menu_bars" onClick={toggle} />
       <div className="space"></div>
       <div className="navbar">
         <Link to="/" className="navbar_links">
