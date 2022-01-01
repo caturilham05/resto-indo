@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/resto-indo/static/css/main.83f62406.css",
+    "main.js": "/resto-indo/static/js/main.897cde43.js",
+    "static/js/787.a3ed3be2.chunk.js": "/resto-indo/static/js/787.a3ed3be2.chunk.js",
+    "static/media/cover2.avif": "/resto-indo/static/media/cover2.ed110611873ac66802ff.avif",
+    "static/media/bars.svg": "/resto-indo/static/media/bars.b32fac52ee2eae68628f.svg",
+    "index.html": "/resto-indo/index.html",
+    "main.83f62406.css.map": "/resto-indo/static/css/main.83f62406.css.map",
+    "main.897cde43.js.map": "/resto-indo/static/js/main.897cde43.js.map",
+    "787.a3ed3be2.chunk.js.map": "/resto-indo/static/js/787.a3ed3be2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.83f62406.css",
+    "static/js/main.897cde43.js"
+  ]
+}
