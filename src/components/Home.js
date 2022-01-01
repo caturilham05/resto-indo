@@ -8,14 +8,18 @@ import { FaPhoneAlt } from "react-icons/fa";
 
 const apiJakarta = `https://developers.zomato.com/api/v2.1/search?entity_id=170&count=5&entity_type=city&order=asc`;
 const apiBali = `https://developers.zomato.com/api/v2.1/search?entity_id=74&count=5&entity_type=city&order=asc`;
-const apiAllJakarta = `https://developers.zomato.com/api/v2.1/search?entity_id=170&entity_type=city&order=asc`;
-const apiAllBali = `https://developers.zomato.com/api/v2.1/search?entity_id=74&entity_type=city&order=asc`;
+const apiAllJakarta = `https://developers.zomato.com/api/v2.1/search?entity_id=170&entity_type=city&order=desc`;
+const apiAllBali = `https://developers.zomato.com/api/v2.1/search?entity_id=74&entity_type=city&order=desc`;
+const apiAllBandung = `https://developers.zomato.com/api/v2.1/search?entity_id=11052&entity_type=city&order=desc`;
+const apiAllKualaLumpur = `https://developers.zomato.com/api/v2.1/search?entity_id=88&entity_type=city&order=asc`;
 
 function Home() {
   const [jakarta, setJakarta] = useState([]);
   const [bali, setBali] = useState([]);
   const [allJakarta, setAllJakarta] = useState([]);
   const [allBali, setAllBali] = useState([]);
+  const [allBandung, setAllBandung] = useState([]);
+  const [allKualaLumpur, setAllKualaLumpur] = useState([]);
 
   useEffect(() => {
     axios
@@ -61,12 +65,36 @@ function Home() {
       .catch((error) => alert(`Error: ${error}`));
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(apiAllBandung, {
+        headers: { "user-key": "38885e95d5c6fd6331ba43a8f569b9cf" },
+      })
+      .then((res) => {
+        setAllBandung(res.data.restaurants);
+      })
+      .catch((error) => alert(`Error: ${error}`));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(apiAllKualaLumpur, {
+        headers: { "user-key": "38885e95d5c6fd6331ba43a8f569b9cf" },
+      })
+      .then((res) => {
+        setAllKualaLumpur(res.data.restaurants);
+      })
+      .catch((error) => alert(`Error: ${error}`));
+  }, []);
+
   const arrJakarta = jakarta;
   const arrBali = bali;
   const mergeArr = [...arrJakarta, ...arrBali];
   const dataJakarta = allJakarta;
   const dataBali = allBali;
-  const mergeAll = [...dataJakarta, ...dataBali];
+  const dataBandung = allBandung;
+  const dataKualaLumpur = allKualaLumpur;
+  const mergeAll = [...dataJakarta, ...dataBali, ...dataBandung, ...dataKualaLumpur];
 
   let datas = mergeAll.reduce(function (index, value) {
     index[value.restaurant.establishment] =
@@ -97,6 +125,9 @@ function Home() {
                 className="card__name "
                 alt={item.restaurant.name}
               />
+              <div className="button_hover">
+                <button className="button_text">Kunjungi Restoran</button>
+              </div>
               <div className="card__overlay">
                 <div className="card__header">
                   <svg className="card__arc" xmlns="http://www.w3.org/2000/svg">
@@ -281,7 +312,9 @@ function Home() {
                               color: "#df0a74",
                             }}
                           />
-                          <p className="p_mobile">{item.restaurant.user_rating.rating_text}</p>
+                          <p className="p_mobile">
+                            {item.restaurant.user_rating.rating_text}
+                          </p>
                           <small className="small_mobile">
                             Rating:
                             {item.restaurant.user_rating.aggregate_rating}
@@ -304,7 +337,9 @@ function Home() {
                               color: "#df0a74",
                             }}
                           />
-                          <p className="p_mobile">{item.restaurant.user_rating.rating_text}</p>
+                          <p className="p_mobile">
+                            {item.restaurant.user_rating.rating_text}
+                          </p>
                           <small className="small_mobile">
                             Rating:{" "}
                             {item.restaurant.user_rating.aggregate_rating}
@@ -332,7 +367,9 @@ function Home() {
                               color: "#df0a74",
                             }}
                           />
-                          <p className="p_mobile">{item.restaurant.user_rating.rating_text}</p>
+                          <p className="p_mobile">
+                            {item.restaurant.user_rating.rating_text}
+                          </p>
                           <small className="small_mobile">
                             Rating:{" "}
                             {item.restaurant.user_rating.aggregate_rating}
@@ -365,7 +402,9 @@ function Home() {
                               color: "#df0a74",
                             }}
                           />
-                          <p className="p_mobile">{item.restaurant.user_rating.rating_text}</p>
+                          <p className="p_mobile">
+                            {item.restaurant.user_rating.rating_text}
+                          </p>
                           <small className="small_mobile">
                             Rating:{" "}
                             {item.restaurant.user_rating.aggregate_rating}
@@ -401,7 +440,9 @@ function Home() {
                             color: "#df0a74",
                           }}
                         />
-                        <p className="p_mobile">{item.restaurant.user_rating.rating_text}</p>
+                        <p className="p_mobile">
+                          {item.restaurant.user_rating.rating_text}
+                        </p>
                         <small className="small_mobile">
                           {item.restaurant.user_rating.aggregate_rating}
                         </small>
@@ -473,13 +514,26 @@ function Home() {
         <h1 className="content_title_category">Kategori Restoran</h1>
         <hr className="content_category_line" />
         <div className="categories">
-          {Object.keys(datas).map((item) => {
+          {Object.keys(datas).map((item, key) => {
             return (
-              <div className="item_one">
+              <div className="item_one" key={key}>
                 <div className="item_text">
                   <h3>{item}</h3>
                   <p>({datas[item].length} Restoran)</p>
                 </div>
+                {/* <div className="block_image">
+                  {datas[item]
+                    .filter((val, index) => index < 5)
+                    .map((v, k) => {
+                      return (
+                        <img
+                          src={v.restaurant.featured_image}
+                          alt={v.restaurant.name}
+                          className="card_category_img"
+                        />
+                      );
+                    })}
+                </div> */}
               </div>
             );
           })}
