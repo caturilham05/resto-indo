@@ -12,7 +12,7 @@ const Navbar = ({toggle}) => {
       <i className="menu_bars" onClick={toggle} />
       <div className="space"></div>
       <div className="navbar">
-        <Link to="/" className="navbar_links">
+        <Link to="/home" className="navbar_links">
             Home
         </Link>
         <Link to="/about" className="navbar_links">
